@@ -1,2 +1,2 @@
 .env
-data/
+./back_end_db/data/
