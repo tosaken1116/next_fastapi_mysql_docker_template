@@ -11,7 +11,7 @@ This is the template we use for web development.
 First, rename .env:
 
 ```
-rm .env.sample .env
+mv .env.sample .env
 ```
 
 Second, edit `.env`file to determine database environment variables:
