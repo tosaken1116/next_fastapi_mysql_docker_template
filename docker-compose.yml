@@ -1,0 +1,39 @@
+version: "3"
+services:
+    front_end:
+        build:
+            context: ./front_end
+            args:
+                WORKDIR: ./front_end/src
+        tty: true
+        working_dir: /front_end/src
+        volumes:
+            - ./front_end/src:/front_end/src
+            - ./front_end/src/node-modules/:/front_end/src/node_modules
+        environment:
+            - WATCHPACK_POLLING=true
+        ports:
+            - 3000:3000
+        command: sh -c "npm run dev"
+    db:
+        image: mysql:5.7
+        container_name: db
+        env_file: .env
+        volumes:
+            - ./back_end/db/data:/var/lib/mysql
+            - ./back_end/db/my.cnf:/etc/mysql/conf.d/my.cnf
+            - ./back_end/db/initdb.d:/docker-entrypoint-initdb.d
+        ports:
+            - 3308:3308
+        command: --port 3308
+        tty: true
+
+    api:
+        depends_on:
+            - db
+        container_name: "api"
+        build: ./back_end/be
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./back_end/be/api:/usr/src/server
