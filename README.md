@@ -24,9 +24,11 @@ docker-compose up --build
 
 After the second time, `--build` is not necessary
 
+## Open Localhost
+
 -   Open["http://localhost:3000"](http://localhost:3000) with your browser when you want to see the front_end result
 
-Open["http://localhost:8000"](http://localhost:8000) with your browser when you want to see the fastapi result
+-   Open["http://localhost:8000"](http://localhost:8000) with your browser when you want to see the fastapi result
 
 ## Stop the development server:
 
