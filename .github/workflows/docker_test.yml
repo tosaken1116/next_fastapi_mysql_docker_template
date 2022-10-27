@@ -1,0 +1,22 @@
+on:
+    push:
+# ジョブ定義
+jobs:
+    run-test:
+        name: Run Test
+        # ubuntu環境で動作
+        runs-on: ubuntu-latest
+        # アクションを定義
+        steps:
+            - name: checkout pushed commit
+              # ソースコードのチェックアウト
+              uses: actions/checkout@v2
+              with:
+                  # PRのHEADブランチを使う
+                  ref: ${{ github.event.pull_request.head.sha }}
+            # E2E テストを Docker Compose で実行する
+            - name: run test on docker-compose
+              run: |
+                  docker-compose -f ./unit-test.yml build
+                  docker-compose -f ./unit-test.yml up --abort-on-container-exit
+              working-directory: ./
